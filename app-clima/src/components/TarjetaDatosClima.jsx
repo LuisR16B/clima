@@ -1,6 +1,20 @@
 import { Tarjeta } from "../components/Tarjeta.jsx"
+import { Tema } from '../context/Tema'
+import { useContext } from "react"
 
-function TarjetaDatosClima( { error, data, loading, tema } ){
+/**
+ * @description Componente que muestra los datos del clima en una tarjeta.
+ * @author Luis Rojas
+ * @param { Object } props - Propiedades del componente.
+ * @param { boolean } props.error - Indica si hubo un error al obtener los datos.
+ * @param { Object } props.data - Datos del clima obtenidos de la API.
+ * @param { boolean } props.loading - Indica si los datos están cargando.
+ * @param { string } props.tema - Tema actual (light o dark) para estilos condicionales.
+ * @returns { JSX.Element } Componente de tarjeta de datos del clima.
+ */
+
+function TarjetaDatosClima( { error, data, loading } ){
+    const { tema } = useContext(Tema)
   return (
     <div>
       { loading ? (

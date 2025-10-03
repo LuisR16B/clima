@@ -9,8 +9,8 @@ createRoot(document.getElementById('root')).render(
     <ProvedorTemas>
       <BrowserRouter>
         <Routes>
-          <Route path="/clima" element={<Clima/>} />
-          <Route path="*" element={<h1> Error </h1>} />
+          <Route path="/" element={<Clima/>} />
+          <Route path="/*" element={<h1> Error </h1>} />
         </Routes>
       </BrowserRouter>
     </ProvedorTemas>

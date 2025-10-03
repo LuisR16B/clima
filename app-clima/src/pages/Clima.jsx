@@ -4,6 +4,15 @@ import { useFetch } from '../hooks/useFetch.js'
 import { Boton } from "../components/Boton.jsx"
 import { TarjetaDatosClima } from "../components/TarjetaDatosClima.jsx"
 
+const API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
+
+/**
+ * @description Página principal de la aplicación de clima.
+ * Muestra el clima actual de una ciudad y permite buscar por nombre o usar la geolocalización.
+ * @author Luis Rojas
+ * @returns { JSX.Element } Componente de la página de clima.
+ */
+
 function Clima(){
   const { tema, cambiarTema } = useContext(Tema)
   const [ciudad, setCiudad] = useState("Tariba");
@@ -12,9 +21,9 @@ function Clima(){
   if (ciudad) {
     if (ciudad.includes(',')) {
       const [lat, lon] = ciudad.split(',');
-      url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=41d3589df9265b82866736a1e478e68a&units=metric&lang=es&units=metric&lang=es`;
+      url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=es&units=metric&lang=es`;
     } else {
-      url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=41d3589df9265b82866736a1e478e68a&units=metric&lang=es&units=metric&lang=es`;
+      url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&appid=${API_KEY}&units=metric&lang=es&units=metric&lang=es`;
     }
   }
   const { data, error, loading } = useFetch(url);
@@ -45,7 +54,7 @@ function Clima(){
       </div>
       <div className={`w-[90vw] max-w-[600px] flex flex-col gap-4`}>
         <div className={`w-full flex justify-center gap-2 px-4 py-3 rounded-xl shadow-md transition duration-200 ease-out hover:shadow-xl hover:scale-101 ${tema === "light" ? "bg-white" : "bg-[hsl(230_20%_15%)]"}`}>
-          <input ref={input} type="text" placeholder="Busca una ciudad..." className={`w-full border-1 p-2 rounded-lg placeholder-gray-400 ${tema === "light" ? "text-black border-gray-200" : "text-white border-gray-900 bg-gray-900"}`}/>
+          <input ref={input} type="text" placeholder="Busca una ciudad..." className={`w-full border-1 p-2 rounded-lg placeholder-gray-400 ${tema === "light" ? "text-black border-gray-200" : "text-white border-gray-900 bg-gray-900"}`} onKeyDown={(e) => { if (e.key === "Enter") { setCiudad(input.current.value.toLowerCase()) } }} />
           <Boton children="Buscar" estilos="bg-[hsl(199_89%_48%)] text-white py-0 px-3 rounded-lg" funcionOnClick={() => {setCiudad(input.current.value.toLowerCase())}}/>
         </div>
         <TarjetaDatosClima error={error} data={data} tema={tema} loading={loading} />

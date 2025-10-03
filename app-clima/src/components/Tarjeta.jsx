@@ -1,3 +1,13 @@
+/**
+ * @description Componente de tarjeta para mostrar datos con un título y un ícono.
+ * @author Luis Rojas
+ * @param { Object } props - Propiedades del componente.
+ * @param { string } props.children - Contenido de la tarjeta.
+ * @param { string } props.tituloDatos - Título de los datos a mostrar.
+ * @param { string } props.datos - Datos a mostrar en la tarjeta.
+ * @returns { JSX.Element } Componente de tarjeta.
+ */
+
 import { Tema } from '../context/Tema'
 import { useContext } from "react"
 
